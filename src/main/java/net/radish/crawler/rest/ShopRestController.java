@@ -1,7 +1,9 @@
 package net.radish.crawler.rest;
 
-import net.radish.crawler.model.Good;
-import net.radish.crawler.service.GoodService;
+
+import net.radish.crawler.model.Category;
+import net.radish.crawler.model.Shop;
+import net.radish.crawler.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,63 +16,62 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/good/")
-public class GoodRestController {
-
+@RequestMapping("/api/v1/category/")
+public class ShopRestController {
     @Autowired
-    private GoodService goodService;
+    private ShopService shopService;
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Good> getGood(@PathVariable("id") Long goodID) {
-        if (goodID == null) {
+    public ResponseEntity<Shop> getCategory(@PathVariable("id") Long categoryId) {
+        if (categoryId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Good good = goodService.getById(goodID);
-        if (good == null) {
+        Shop shop = shopService.getById(categoryId);
+        if (shop == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(good, HttpStatus.OK);
+        return new ResponseEntity<>(shop, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Good> saveGood(@RequestBody @Valid Good good) {
-        if (good == null) {
+    public ResponseEntity<Shop> saveGood(@RequestBody @Valid Shop shop) {
+        if (shop == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         HttpHeaders headers = new HttpHeaders();
-        this.goodService.save(good);
-        return new ResponseEntity<>(good, headers, HttpStatus.CREATED);
+        this.shopService.save(shop);
+        return new ResponseEntity<>(shop, headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Good> updateGood(@RequestBody @Valid Good good, UriComponentsBuilder builder) {
-        if (good == null) {
+    public ResponseEntity<Shop> updateGood(@RequestBody @Valid Shop shop, UriComponentsBuilder builder) {
+        if (shop == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         HttpHeaders headers = new HttpHeaders();
-        this.goodService.save(good);
-        return new ResponseEntity<>(good, headers, HttpStatus.OK);
+        this.shopService.save(shop);
+        return new ResponseEntity<>(shop, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Good> deleteGood(@PathVariable("id") Long goodID) {
+    public ResponseEntity<Shop> deleteGood(@PathVariable("id") Long goodID) {
         if (goodID == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Good good = goodService.getById(goodID);
-        if (good == null) {
+        Shop shop = shopService.getById(goodID);
+        if (shop == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        this.goodService.delete(goodID);
+        this.shopService.delete(goodID);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Good>> getAllGoods() {
-        List<Good> goods = this.goodService.getAll();
-        if (goods.isEmpty()) {
+    public ResponseEntity<List<Shop>> getAllGoods() {
+        List<Shop> shops = this.shopService.getAll();
+        if (shops.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(goods, HttpStatus.OK);
+        return new ResponseEntity<>(shops, HttpStatus.OK);
     }
 }

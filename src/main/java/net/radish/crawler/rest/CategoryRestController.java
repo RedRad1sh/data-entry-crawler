@@ -1,7 +1,8 @@
 package net.radish.crawler.rest;
 
-import net.radish.crawler.model.Good;
-import net.radish.crawler.service.GoodService;
+
+import net.radish.crawler.model.Category;
+import net.radish.crawler.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,63 +15,62 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/good/")
-public class GoodRestController {
-
+@RequestMapping("/api/v1/category/")
+public class CategoryRestController {
     @Autowired
-    private GoodService goodService;
+    private CategoryService categoryService;
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Good> getGood(@PathVariable("id") Long goodID) {
-        if (goodID == null) {
+    public ResponseEntity<Category> getCategory(@PathVariable("id") Long categoryId) {
+        if (categoryId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Good good = goodService.getById(goodID);
-        if (good == null) {
+        Category category = categoryService.getById(categoryId);
+        if (category == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(good, HttpStatus.OK);
+        return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Good> saveGood(@RequestBody @Valid Good good) {
-        if (good == null) {
+    public ResponseEntity<Category> saveGood(@RequestBody @Valid Category category) {
+        if (category == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         HttpHeaders headers = new HttpHeaders();
-        this.goodService.save(good);
-        return new ResponseEntity<>(good, headers, HttpStatus.CREATED);
+        this.categoryService.save(category);
+        return new ResponseEntity<>(category, headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Good> updateGood(@RequestBody @Valid Good good, UriComponentsBuilder builder) {
-        if (good == null) {
+    public ResponseEntity<Category> updateGood(@RequestBody @Valid Category category, UriComponentsBuilder builder) {
+        if (category == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         HttpHeaders headers = new HttpHeaders();
-        this.goodService.save(good);
-        return new ResponseEntity<>(good, headers, HttpStatus.OK);
+        this.categoryService.save(category);
+        return new ResponseEntity<>(category, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Good> deleteGood(@PathVariable("id") Long goodID) {
+    public ResponseEntity<Category> deleteGood(@PathVariable("id") Long goodID) {
         if (goodID == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Good good = goodService.getById(goodID);
-        if (good == null) {
+        Category category = categoryService.getById(goodID);
+        if (category == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        this.goodService.delete(goodID);
+        this.categoryService.delete(goodID);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Good>> getAllGoods() {
-        List<Good> goods = this.goodService.getAll();
-        if (goods.isEmpty()) {
+    public ResponseEntity<List<Category>> getAllGoods() {
+        List<Category> categories = this.categoryService.getAll();
+        if (categories.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(goods, HttpStatus.OK);
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 }
