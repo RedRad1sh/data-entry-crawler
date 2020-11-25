@@ -20,12 +20,12 @@ public class CategoryRestController {
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Category> getCategory(@PathVariable("id") Long categoryId) {
-        if (categoryId == null) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Category> getCategory(@PathVariable("id") Long id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Category category = categoryService.getById(categoryId);
+        Category category = categoryService.getById(id);
         if (category == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -52,16 +52,16 @@ public class CategoryRestController {
         return new ResponseEntity<>(category, headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Category> deleteGood(@PathVariable("id") Long goodID) {
-        if (goodID == null) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Category> deleteGood(@PathVariable("id") Long id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Category category = categoryService.getById(goodID);
+        Category category = categoryService.getById(id);
         if (category == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        this.categoryService.delete(goodID);
+        this.categoryService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

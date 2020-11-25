@@ -3,14 +3,13 @@ package net.radish.crawler.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "GoodUrl", schema = "public")
+@Table(name = "\"GoodUrl\"", schema = "public")
 @Getter
 @Setter
 @ToString

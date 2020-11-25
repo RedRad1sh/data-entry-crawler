@@ -16,17 +16,17 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/category/")
+@RequestMapping("/api/v1/shop/")
 public class ShopRestController {
     @Autowired
     private ShopService shopService;
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Shop> getCategory(@PathVariable("id") Long categoryId) {
-        if (categoryId == null) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Shop> getCategory(@PathVariable("id") Long id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Shop shop = shopService.getById(categoryId);
+        Shop shop = shopService.getById(id);
         if (shop == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -53,16 +53,16 @@ public class ShopRestController {
         return new ResponseEntity<>(shop, headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Shop> deleteGood(@PathVariable("id") Long goodID) {
-        if (goodID == null) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Shop> deleteGood(@PathVariable("id") Long id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Shop shop = shopService.getById(goodID);
+        Shop shop = shopService.getById(id);
         if (shop == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        this.shopService.delete(goodID);
+        this.shopService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

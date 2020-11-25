@@ -4,16 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "Category", schema = "public")
+@Table(name = "\"Category\"", schema = "public")
 @Getter
 @Setter
 @ToString
 public class Category extends BaseEntity{
+
     @Column(name = "\"name\"")
-    private String goodName;
+    private String name;
 }

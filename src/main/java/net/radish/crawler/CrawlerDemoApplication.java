@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GoodDemoApplication {
+public class CrawlerDemoApplication {
     public static void main(String[] args) {
-        SpringApplication.run(GoodDemoApplication.class);
+        SpringApplication.run(CrawlerDemoApplication.class);
     }
 }

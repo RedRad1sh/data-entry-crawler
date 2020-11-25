@@ -21,7 +21,7 @@ public class GoodUrlRestController {
     @Autowired
     private GoodUrlService goodUrlService;
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GoodUrl> getCategory(@PathVariable("id") Long categoryId) {
         if (categoryId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -34,13 +34,13 @@ public class GoodUrlRestController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GoodUrl> saveGood(@RequestBody @Valid GoodUrl goodUrl) {
-        if (goodUrl == null) {
+    public ResponseEntity<GoodUrl> saveGood(@RequestBody @Valid GoodUrl id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         HttpHeaders headers = new HttpHeaders();
-        this.goodUrlService.save(goodUrl);
-        return new ResponseEntity<>(goodUrl, headers, HttpStatus.CREATED);
+        this.goodUrlService.save(id);
+        return new ResponseEntity<>(id, headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,16 +53,16 @@ public class GoodUrlRestController {
         return new ResponseEntity<>(goodUrl, headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GoodUrl> deleteGood(@PathVariable("id") Long goodID) {
-        if (goodID == null) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GoodUrl> deleteGood(@PathVariable("id") Long id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        GoodUrl goodUrl = goodUrlService.getById(goodID);
+        GoodUrl goodUrl = goodUrlService.getById(id);
         if (goodUrl == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        this.goodUrlService.delete(goodID);
+        this.goodUrlService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

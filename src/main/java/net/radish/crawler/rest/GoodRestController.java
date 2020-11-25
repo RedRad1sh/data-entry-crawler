@@ -20,12 +20,12 @@ public class GoodRestController {
     @Autowired
     private GoodService goodService;
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Good> getGood(@PathVariable("id") Long goodID) {
-        if (goodID == null) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Good> getGood(@PathVariable("id") Long id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Good good = goodService.getById(goodID);
+        Good good = goodService.getById(id);
         if (good == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -52,16 +52,16 @@ public class GoodRestController {
         return new ResponseEntity<>(good, headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Good> deleteGood(@PathVariable("id") Long goodID) {
-        if (goodID == null) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Good> deleteGood(@PathVariable("id") Long id) {
+        if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Good good = goodService.getById(goodID);
+        Good good = goodService.getById(id);
         if (good == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        this.goodService.delete(goodID);
+        this.goodService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
