@@ -9,13 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Good", schema = "public")
+@Table(name = "Category", schema = "public")
 @Getter
 @Setter
 @ToString
-public class Good extends BaseEntity {
-    @Column(name = "\"goodName\"")
+public class Category extends BaseEntity{
+    @Column(name = "\"name\"")
     private String goodName;
-    @Column(name = "\"vendorNumber\"")
-    private String vendorNumber;
 }

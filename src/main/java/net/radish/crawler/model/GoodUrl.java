@@ -7,15 +7,16 @@ import lombok.ToString;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Good", schema = "public")
+@Table(name = "GoodUrl", schema = "public")
 @Getter
 @Setter
 @ToString
-public class Good extends BaseEntity {
-    @Column(name = "\"goodName\"")
-    private String goodName;
-    @Column(name = "\"vendorNumber\"")
-    private String vendorNumber;
+public class GoodUrl extends BaseEntity{
+    @Column(name = "\"url\"")
+    private String url;
+    @Column(name = "\"createDate\"")
+    private Timestamp createDate;
 }
