@@ -1,7 +1,6 @@
-package net.radish.crawler.repository;
+package net.radish.main.repository;
 
-import net.radish.crawler.model.Good;
-import net.radish.crawler.model.GoodUrl;
+import net.radish.main.model.GoodUrl;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GoodUrlRepository extends JpaRepository<GoodUrl, Long> {

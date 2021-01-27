@@ -1,11 +1,11 @@
-package net.radish.crawler.service;
+package net.radish.main.service;
 
-import net.radish.crawler.model.Shop;
+import net.radish.main.model.Shop;
 
 import java.util.List;
 
 public interface ShopService {
-    Shop getById(Long id);
+    Shop findOne(Long id);
 
     void save(Shop shop);
 

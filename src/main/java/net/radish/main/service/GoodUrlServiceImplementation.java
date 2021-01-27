@@ -1,11 +1,8 @@
-package net.radish.crawler.service;
+package net.radish.main.service;
 
 import lombok.extern.slf4j.Slf4j;
-import net.radish.crawler.model.GoodUrl;
-import net.radish.crawler.model.Shop;
-import net.radish.crawler.repository.GoodRepository;
-import net.radish.crawler.repository.GoodUrlRepository;
-import net.radish.crawler.repository.ShopRepository;
+import net.radish.main.model.GoodUrl;
+import net.radish.main.repository.GoodUrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +16,9 @@ public class GoodUrlServiceImplementation implements GoodUrlService {
     GoodUrlRepository goodUrlRepository;
 
     @Override
-    public GoodUrl getById(Long id) {
+    public GoodUrl findOne(Long id) {
         log.info("IN GoodUrlServiceImplementation METHOD getById {}", id);
-        return goodUrlRepository.findById(id).orElse(null);
+        return goodUrlRepository.findById(id).get();
     }
 
     @Override

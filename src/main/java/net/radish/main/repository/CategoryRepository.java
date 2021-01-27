@@ -1,6 +1,6 @@
-package net.radish.crawler.repository;
+package net.radish.main.repository;
 
-import net.radish.crawler.model.Category;
+import net.radish.main.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {

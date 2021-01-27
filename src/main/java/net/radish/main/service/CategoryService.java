@@ -1,11 +1,11 @@
-package net.radish.crawler.service;
+package net.radish.main.service;
 
-import net.radish.crawler.model.Category;
+import net.radish.main.model.Category;
 
 import java.util.List;
 
 public interface CategoryService {
-    Category getById(Long id);
+    Category findOne(Long id);
 
     void save(Category category);
 

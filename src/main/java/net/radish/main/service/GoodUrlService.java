@@ -1,11 +1,11 @@
-package net.radish.crawler.service;
+package net.radish.main.service;
 
-import net.radish.crawler.model.GoodUrl;
+import net.radish.main.model.GoodUrl;
 
 import java.util.List;
 
 public interface GoodUrlService {
-    GoodUrl getById(Long id);
+    GoodUrl findOne(Long id);
 
     void save(GoodUrl goodUrl);
 

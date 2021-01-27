@@ -1,8 +1,8 @@
-package net.radish.crawler.service;
+package net.radish.main.service;
 
 import lombok.extern.slf4j.Slf4j;
-import net.radish.crawler.model.Category;
-import net.radish.crawler.repository.CategoryRepository;
+import net.radish.main.model.Category;
+import net.radish.main.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +16,9 @@ public class CategoryServiceImplementation implements CategoryService {
     CategoryRepository categoryRepository;
 
     @Override
-    public Category getById(Long id) {
+    public Category findOne(Long id) {
         log.info("IN CategoryServiceImplementation METHOD getById {}", id);
-        return categoryRepository.findById(id).orElse(null);
+        return categoryRepository.findById(id).get();
     }
 
     @Override
@@ -38,4 +38,5 @@ public class CategoryServiceImplementation implements CategoryService {
         log.info("IN CategoryServiceImplementation METHOD getAll");
         return categoryRepository.findAll();
     }
+
 }

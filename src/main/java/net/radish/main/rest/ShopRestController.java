@@ -1,9 +1,8 @@
-package net.radish.crawler.rest;
+package net.radish.main.rest;
 
 
-import net.radish.crawler.model.Category;
-import net.radish.crawler.model.Shop;
-import net.radish.crawler.service.ShopService;
+import net.radish.main.model.Shop;
+import net.radish.main.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,7 +25,7 @@ public class ShopRestController {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Shop shop = shopService.getById(id);
+        Shop shop = shopService.findOne(id);
         if (shop == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -58,7 +57,7 @@ public class ShopRestController {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        Shop shop = shopService.getById(id);
+        Shop shop = shopService.findOne(id);
         if (shop == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

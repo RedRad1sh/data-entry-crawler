@@ -1,6 +1,6 @@
-package net.radish.crawler.model;
+package net.radish.main.model;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,9 +14,11 @@ import javax.persistence.MappedSuperclass;
 @Getter
 @Setter
 @ToString
-public class BaseEntity {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 }

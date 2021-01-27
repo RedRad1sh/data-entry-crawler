@@ -1,8 +1,8 @@
-package net.radish.crawler.service;
+package net.radish.main.service;
 
 import lombok.extern.slf4j.Slf4j;
-import net.radish.crawler.model.Shop;
-import net.radish.crawler.repository.ShopRepository;
+import net.radish.main.model.Shop;
+import net.radish.main.repository.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +16,9 @@ public class ShopServiceImplementation implements ShopService {
     ShopRepository shopRepository;
 
     @Override
-    public Shop getById(Long id) {
+    public Shop findOne(Long id) {
         log.info("IN ShopServiceImplementation METHOD getById {}", id);
-        return shopRepository.findById(id).orElse(null);
+        return shopRepository.findById(id).get();
     }
 
     @Override
