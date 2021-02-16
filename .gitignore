@@ -2,5 +2,4 @@
 src/test
 target
 application-dev.properties
-application-prod.properties
 src/main/resources/database
