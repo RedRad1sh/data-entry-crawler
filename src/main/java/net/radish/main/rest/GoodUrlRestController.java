@@ -71,7 +71,7 @@ public class GoodUrlRestController {
         goodUrl.setShop(shopService.findOne(goodUrl.getShop().getId()));
         goodUrl.setCreateDate(new Timestamp(System.currentTimeMillis()));
         this.goodUrlService.save(goodUrl);
-        kafkaTemplate.send(TOPIC, goodUrl.getId().toString(), goodUrl);
+        kafkaTemplate.send(TOPIC, goodUrl.getGood().getVendorNumber(), goodUrl);
         return new ResponseEntity<>(goodUrl, headers, HttpStatus.OK);
     }
 
