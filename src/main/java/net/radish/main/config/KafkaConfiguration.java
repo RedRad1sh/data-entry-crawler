@@ -27,6 +27,9 @@ public class KafkaConfiguration {
     @Value("${kafka.password}")
     private String password = "";
 
+    @Value("${kafka.topic}")
+    public String topic = "";
+
     @Bean
     public ProducerFactory<String, GoodUrl> producerFactory() {
         Map<String, Object> props = new HashMap<>();
@@ -39,6 +42,14 @@ public class KafkaConfiguration {
         props.put(
                 ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
                 JsonSerializer.class);
+        props.put("group.id", username + "-consumer");
+        props.put("enable.auto.commit", "true");
+        props.put("auto.commit.interval.ms", "1000");
+        props.put("auto.offset.reset", "latest");
+        props.put("session.timeout.ms", "30000");
+        props.put("group.id", username + "-consumer");
+        props.put("security.protocol", "SASL_SSL");
+        props.put("sasl.mechanism", "SCRAM-SHA-256");
         props.put("sasl.jaas.config", PlainLoginModule.class.getName() + " required username=\"" + username + "\" password=\"" + password + "\";");
 
         return new DefaultKafkaProducerFactory<>(props);

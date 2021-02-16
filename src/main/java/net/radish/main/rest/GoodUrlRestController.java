@@ -1,15 +1,18 @@
 package net.radish.main.rest;
 
 
+import net.radish.main.config.KafkaConfiguration;
 import net.radish.main.model.GoodUrl;
 import net.radish.main.service.GoodService;
 import net.radish.main.service.GoodUrlService;
 import net.radish.main.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -17,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/goodurl/")
@@ -25,7 +29,8 @@ public class GoodUrlRestController {
     @Autowired
     KafkaTemplate<String, GoodUrl> kafkaTemplate;
 
-    private static final String TOPIC = "Example";
+    @Autowired
+    KafkaConfiguration kafkaConfiguration;
 
     @Autowired
     private GoodUrlService goodUrlService;
@@ -71,7 +76,7 @@ public class GoodUrlRestController {
         goodUrl.setShop(shopService.findOne(goodUrl.getShop().getId()));
         goodUrl.setCreateDate(new Timestamp(System.currentTimeMillis()));
         this.goodUrlService.save(goodUrl);
-        kafkaTemplate.send(TOPIC, goodUrl.getGood().getVendorNumber(), goodUrl);
+        kafkaTemplate.send(kafkaConfiguration.topic, goodUrl.getGood().getVendorNumber(), goodUrl);
         return new ResponseEntity<>(goodUrl, headers, HttpStatus.OK);
     }
 
