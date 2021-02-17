@@ -2,7 +2,6 @@ package net.radish.main.config;
 
 import net.radish.main.model.GoodUrl;
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.security.plain.PlainLoginModule;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +23,7 @@ public class KafkaConfiguration {
     @Value("${kafka.username}")
     private String username = "";
 
-    @Value("${kafka.password}")
+    @Value(value = "${kafka.password}")
     private String password = "";
 
     @Value("${kafka.topic}")
@@ -42,16 +41,10 @@ public class KafkaConfiguration {
         props.put(
                 ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
                 JsonSerializer.class);
-        props.put("group.id", username + "-consumer");
-        props.put("enable.auto.commit", "true");
-        props.put("auto.commit.interval.ms", "1000");
-        props.put("auto.offset.reset", "latest");
-        props.put("session.timeout.ms", "30000");
-        props.put("group.id", username + "-consumer");
+        props.put("ssl.endpoint.identification.algorithm", "https");
         props.put("security.protocol", "SASL_SSL");
-        props.put("sasl.mechanism", "SCRAM-SHA-256");
-        props.put("sasl.jaas.config", PlainLoginModule.class.getName() + " required username=\"" + username + "\" password=\"" + password + "\";");
-
+        props.put("sasl.mechanism", "PLAIN");
+        props.put("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"MRTDBFFKIRFZ3T6V\" password=\"nSfVKChP6GXO8yndwLQuCWj4NBvR7V6o6NOhqxHtlgwyKKnd9Xxk4Lm4j4Kh0194\";");
         return new DefaultKafkaProducerFactory<>(props);
     }
 

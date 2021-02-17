@@ -2,4 +2,5 @@
 src/test
 target
 application-dev.properties
+application-dev-online.properties
 src/main/resources/database
