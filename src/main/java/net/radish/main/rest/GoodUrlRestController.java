@@ -54,17 +54,7 @@ public class GoodUrlRestController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GoodUrl> saveGoodUrl(@RequestBody @Valid GoodUrl id) {
-        if (id == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        HttpHeaders headers = new HttpHeaders();
-        this.goodUrlService.save(id);
-        return new ResponseEntity<>(id, headers, HttpStatus.CREATED);
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GoodUrl> updateGoodUrl(@RequestBody @Valid GoodUrl goodUrl, UriComponentsBuilder builder) {
+    public ResponseEntity<GoodUrl> saveGoodUrl(@RequestBody @Valid GoodUrl goodUrl) {
         if (goodUrl == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -77,6 +67,16 @@ public class GoodUrlRestController {
         goodUrl.setCreateDate(new Timestamp(System.currentTimeMillis()));
         this.goodUrlService.save(goodUrl);
         kafkaTemplate.send(kafkaConfiguration.topic, goodUrl.getGood().getVendorNumber(), goodUrl);
+        return new ResponseEntity<>(goodUrl, headers, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GoodUrl> updateGoodUrl(@RequestBody @Valid GoodUrl goodUrl, UriComponentsBuilder builder) {
+        if (goodUrl == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        HttpHeaders headers = new HttpHeaders();
+        this.goodUrlService.save(goodUrl);
         return new ResponseEntity<>(goodUrl, headers, HttpStatus.OK);
     }
 
